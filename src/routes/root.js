@@ -1,13 +1,13 @@
-import {Router} from 'express'
+import { Router } from 'express'
 
-import logger from '../helpers/logger'
+import logger from '../utils/logger'
 
 const router = Router()
 
-app.get('/',(req, res) => {
-    logger.error('Inside the root path')
-    const title = process.env.TITLE || 'Server'
-    res.send({ msg: title })
+router.get('/', (req, res) => {
+  logger.info('Inside the root path')
+  const title = process.env.TITLE || 'Server'
+  res.send({ msg: title })
 })
 
 export default router
