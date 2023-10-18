@@ -1,17 +1,27 @@
-//console.log('Hi')
-//console.log('Hello There!')
-
-//import { multiplication } from './maths'
-//console.log(multiplication(3, 5))
+import './helpers/dotenv'
 
 import express from 'express'
+import morgan from 'morgan'
+import cors from 'cors'
+import helmet from 'helmet'
+
+import logger from './helpers/logger'
+
+const port = parseInt(process.env.PORT, 10) || 3000
 
 const app = express()
 
-const port = 3000
+app.use(morgan(process.env.MORGAN_LOG))
+app.use(cors({origin: process.env.origin }))
+app.use(helmet())
+
 
 app.get('/',(req, res) => {
-    res.send({ msg: 'Hello There This is Your PC' })
+    logger.error('Inside the root path')
+    const title = process.env.TITLE || 'Server'
+    res.send({ msg: title })
 })
 
-app.listen(port)
+app.listen(port, ()=>
+ logger.log(`Application started at http://localhost${process.env.PORT}`),
+ )
